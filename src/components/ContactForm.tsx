@@ -1,4 +1,4 @@
-import { Phone, Mail, MapPin, Lock } from "lucide-react";
+import { Phone, Mail, MapPin, Lock } from 'lucide-react';
 
 export default function ContactForm() {
   return (
@@ -16,7 +16,7 @@ export default function ContactForm() {
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
-          {/* LEFT: Google Form */}
+          {/* LEFT: Google Form embed */}
           <div className="lg:col-span-2">
             <div className="bg-white rounded-2xl shadow-xl p-4 lg:p-6 border border-gray-200">
               <h3 className="text-2xl font-bold text-gray-900 mb-4">
@@ -40,7 +40,7 @@ export default function ContactForm() {
             </div>
           </div>
 
-          {/* RIGHT: info boxes (same as before) */}
+          {/* RIGHT: Contact info + security – same as before */}
           <div className="space-y-6">
             <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-200">
               <h3 className="text-xl font-bold text-gray-900 mb-6">Contact Information</h3>
