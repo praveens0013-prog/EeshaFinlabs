@@ -21,8 +21,8 @@ const products: LoanProduct[] = [
       'Flexible repayment tenure',
       'No collateral required'
     ],
-    amount: '₹50K - ₹40L',
-    rate: 'From 10.5%*',
+    amount: '₹50K - ₹1Cr',
+    rate: 'From 9.5%*',
     color: 'blue'
   },
   {
@@ -35,7 +35,7 @@ const products: LoanProduct[] = [
       'Competitive interest rates',
       'Flexible tenure options'
     ],
-    amount: '₹1L - ₹75L',
+    amount: '₹1L - ₹50Cr',
     rate: 'From 11%*',
     color: 'green'
   },
@@ -64,7 +64,7 @@ const products: LoanProduct[] = [
       'Multi-purpose usage'
     ],
     amount: '₹10L - ₹10Cr',
-    rate: 'From 9%*',
+    rate: 'From 8.5%*',
     color: 'orange'
   },
   {
