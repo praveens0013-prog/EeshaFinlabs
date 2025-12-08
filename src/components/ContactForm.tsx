@@ -1,6 +1,81 @@
-import { Phone, Mail, MapPin, Lock } from 'lucide-react';
+import { Phone, Mail, MapPin, Lock, User, DollarSign, Briefcase, Calendar } from 'lucide-react';
+import { useState } from 'react';
 
 export default function ContactForm() {
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    phone: '',
+    loanType: '',
+    loanAmount: '',
+    monthlyIncome: '',
+    employmentType: '',
+    city: '',
+    pincode: '',
+    purpose: ''
+  });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      // Create form data for Google Form submission
+      const googleFormData = new FormData();
+      
+      // Map form fields to Google Form entry IDs (you'll need to update these with actual entry IDs)
+      googleFormData.append('entry.123456789', formData.fullName); // Replace with actual entry ID
+      googleFormData.append('entry.987654321', formData.email);
+      googleFormData.append('entry.456789123', formData.phone);
+      googleFormData.append('entry.789123456', formData.loanType);
+      googleFormData.append('entry.321654987', formData.loanAmount);
+      googleFormData.append('entry.654987321', formData.monthlyIncome);
+      googleFormData.append('entry.147258369', formData.employmentType);
+      googleFormData.append('entry.258369147', formData.city);
+      googleFormData.append('entry.369147258', formData.pincode);
+      googleFormData.append('entry.741852963', formData.purpose);
+
+      // Submit to Google Form
+      await fetch('https://docs.google.com/forms/d/e/1FAIpQLSfX3bHurKbE2PVYV4NXEvodQFiZXsuN-JZCj-RL3__7EID13A/formResponse', {
+        method: 'POST',
+        mode: 'no-cors',
+        body: googleFormData
+      });
+
+      setSubmitStatus('success');
+      // Reset form
+      setFormData({
+        fullName: '',
+        email: '',
+        phone: '',
+        loanType: '',
+        loanAmount: '',
+        monthlyIncome: '',
+        employmentType: '',
+        city: '',
+        pincode: '',
+        purpose: ''
+      });
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <section id="contact-form" className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -16,31 +91,294 @@ export default function ContactForm() {
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
-          {/* LEFT: Google Form embed */}
+          {/* LEFT: Custom Form */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-2xl shadow-xl p-4 lg:p-6 border border-gray-200">
+            <div className="bg-white rounded-2xl shadow-xl p-6 lg:p-8 border border-gray-200">
               <h3 className="text-2xl font-bold text-gray-900 mb-4">
                 Loan Enquiry Form
               </h3>
               <p className="text-gray-600 mb-6">
-                Fill in your details in the secure form below to start your loan application.
+                Fill in your details below to start your loan application process.
               </p>
 
-              <div className="w-full min-h-[600px] border rounded-2xl overflow-hidden bg-white">
-                <iframe
-                  src="https://docs.google.com/forms/d/e/1FAIpQLSfX3bHurKbE2PVYV4NXEvodQFiZXsuN-JZCj-RL3__7EID13A/viewform?embedded=true"
-                  width="100%"
-                  height="900"
-                  frameBorder={0}
-                  title="Eesha Finlabs Lead Form"
+              {submitStatus === 'success' && (
+                <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+                  <div className="flex items-center space-x-2">
+                    <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <p className="text-green-800 font-semibold">Application Submitted Successfully!</p>
+                  </div>
+                  <p className="text-green-700 text-sm mt-1">Our team will contact you within 2 hours.</p>
+                </div>
+              )}
+
+              {submitStatus === 'error' && (
+                <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+                  <div className="flex items-center space-x-2">
+                    <svg className="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                    <p className="text-red-800 font-semibold">Submission Failed</p>
+                  </div>
+                  <p className="text-red-700 text-sm mt-1">Please try again or call us directly.</p>
+                </div>
+              )}
+
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Personal Information */}
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label htmlFor="fullName" className="block text-sm font-semibold text-gray-700 mb-2">
+                      Full Name *
+                    </label>
+                    <div className="relative">
+                      <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                      <input
+                        type="text"
+                        id="fullName"
+                        name="fullName"
+                        value={formData.fullName}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        placeholder="Enter your full name"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-2">
+                      Mobile Number *
+                    </label>
+                    <div className="relative">
+                      <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                      <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        placeholder="Enter 10-digit mobile number"
+                        pattern="[0-9]{10}"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
+                    Email Address *
+                  </label>
+                  <div className="relative">
+                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="Enter your email address"
+                    />
+                  </div>
+                </div>
+
+                {/* Loan Information */}
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label htmlFor="loanType" className="block text-sm font-semibold text-gray-700 mb-2">
+                      Loan Type *
+                    </label>
+                    <select
+                      id="loanType"
+                      name="loanType"
+                      value={formData.loanType}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    >
+                      <option value="">Select loan type</option>
+                      <option value="Personal Loan">Personal Loan</option>
+                      <option value="Business Loan">Business Loan</option>
+                      <option value="Home Loan">Home Loan</option>
+                      <option value="Loan Against Property">Loan Against Property</option>
+                      <option value="Credit Card">Credit Card</option>
+                      <option value="Working Capital">Working Capital</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label htmlFor="loanAmount" className="block text-sm font-semibold text-gray-700 mb-2">
+                      Loan Amount Required *
+                    </label>
+                    <div className="relative">
+                      <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                      <select
+                        id="loanAmount"
+                        name="loanAmount"
+                        value={formData.loanAmount}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      >
+                        <option value="">Select amount range</option>
+                        <option value="₹50,000 - ₹2,00,000">₹50,000 - ₹2,00,000</option>
+                        <option value="₹2,00,000 - ₹5,00,000">₹2,00,000 - ₹5,00,000</option>
+                        <option value="₹5,00,000 - ₹10,00,000">₹5,00,000 - ₹10,00,000</option>
+                        <option value="₹10,00,000 - ₹25,00,000">₹10,00,000 - ₹25,00,000</option>
+                        <option value="₹25,00,000 - ₹50,00,000">₹25,00,000 - ₹50,00,000</option>
+                        <option value="Above ₹50,00,000">Above ₹50,00,000</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Employment Information */}
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label htmlFor="employmentType" className="block text-sm font-semibold text-gray-700 mb-2">
+                      Employment Type *
+                    </label>
+                    <div className="relative">
+                      <Briefcase className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                      <select
+                        id="employmentType"
+                        name="employmentType"
+                        value={formData.employmentType}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      >
+                        <option value="">Select employment type</option>
+                        <option value="Salaried">Salaried</option>
+                        <option value="Self Employed">Self Employed</option>
+                        <option value="Business Owner">Business Owner</option>
+                        <option value="Professional">Professional</option>
+                        <option value="Retired">Retired</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label htmlFor="monthlyIncome" className="block text-sm font-semibold text-gray-700 mb-2">
+                      Monthly Income *
+                    </label>
+                    <select
+                      id="monthlyIncome"
+                      name="monthlyIncome"
+                      value={formData.monthlyIncome}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    >
+                      <option value="">Select income range</option>
+                      <option value="₹15,000 - ₹25,000">₹15,000 - ₹25,000</option>
+                      <option value="₹25,000 - ₹50,000">₹25,000 - ₹50,000</option>
+                      <option value="₹50,000 - ₹1,00,000">₹50,000 - ₹1,00,000</option>
+                      <option value="₹1,00,000 - ₹2,00,000">₹1,00,000 - ₹2,00,000</option>
+                      <option value="Above ₹2,00,000">Above ₹2,00,000</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Location Information */}
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label htmlFor="city" className="block text-sm font-semibold text-gray-700 mb-2">
+                      City *
+                    </label>
+                    <div className="relative">
+                      <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                      <input
+                        type="text"
+                        id="city"
+                        name="city"
+                        value={formData.city}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        placeholder="Enter your city"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label htmlFor="pincode" className="block text-sm font-semibold text-gray-700 mb-2">
+                      Pincode *
+                    </label>
+                    <input
+                      type="text"
+                      id="pincode"
+                      name="pincode"
+                      value={formData.pincode}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="Enter 6-digit pincode"
+                      pattern="[0-9]{6}"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="purpose" className="block text-sm font-semibold text-gray-700 mb-2">
+                    Loan Purpose (Optional)
+                  </label>
+                  <textarea
+                    id="purpose"
+                    name="purpose"
+                    value={formData.purpose}
+                    onChange={handleInputChange}
+                    rows={3}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="Brief description of loan purpose..."
+                  />
+                </div>
+
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <div className="flex items-start space-x-3">
+                    <Lock className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                    <div className="text-sm">
+                      <p className="text-blue-800 font-semibold mb-1">Data Privacy & Security</p>
+                      <p className="text-blue-700">
+                        Your information is encrypted and secure. We only share your details with authorized lenders for loan processing. 
+                        By submitting this form, you consent to be contacted by our team and partner institutions.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-blue-600 text-white py-4 px-6 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
                 >
-                  Loading…
-                </iframe>
-              </div>
+                  {isSubmitting ? (
+                    <>
+                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      <span>Submitting Application...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Submit Loan Application</span>
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </>
+                  )}
+                </button>
+              </form>
             </div>
           </div>
 
-          {/* RIGHT: Contact info + security – same as before */}
+          {/* RIGHT: Contact info + security */}
           <div className="space-y-6">
             <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-200">
               <h3 className="text-xl font-bold text-gray-900 mb-6">Contact Information</h3>
