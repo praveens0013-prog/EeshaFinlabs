@@ -32,26 +32,29 @@ export default function ContactForm() {
     setSubmitStatus('idle');
 
     try {
-      // Create form data for Google Form submission
-      const googleFormData = new FormData();
+      // Create URL-encoded form data for Google Form submission
+      const formParams = new URLSearchParams();
       
-      // Map form fields to Google Form entry IDs (you'll need to update these with actual entry IDs)
-      googleFormData.append('entry.123456789', formData.fullName); // Replace with actual entry ID
-      googleFormData.append('entry.987654321', formData.email);
-      googleFormData.append('entry.456789123', formData.phone);
-      googleFormData.append('entry.789123456', formData.loanType);
-      googleFormData.append('entry.321654987', formData.loanAmount);
-      googleFormData.append('entry.654987321', formData.monthlyIncome);
-      googleFormData.append('entry.147258369', formData.employmentType);
-      googleFormData.append('entry.258369147', formData.city);
-      googleFormData.append('entry.369147258', formData.pincode);
-      googleFormData.append('entry.741852963', formData.purpose);
+      // Map form fields to Google Form entry IDs - these need to be updated with actual entry IDs from your form
+      formParams.append('entry.1234567890', formData.fullName); // Full Name
+      formParams.append('entry.0987654321', formData.email); // Email
+      formParams.append('entry.1122334455', formData.phone); // Phone
+      formParams.append('entry.5566778899', formData.loanType); // Loan Type
+      formParams.append('entry.9988776655', formData.loanAmount); // Loan Amount
+      formParams.append('entry.4433221100', formData.monthlyIncome); // Monthly Income
+      formParams.append('entry.7766554433', formData.employmentType); // Employment Type
+      formParams.append('entry.2211009988', formData.city); // City
+      formParams.append('entry.6655443322', formData.pincode); // Pincode
+      formParams.append('entry.1100998877', formData.purpose); // Purpose
 
       // Submit to Google Form
-      await fetch('https://docs.google.com/forms/d/e/1FAIpQLSfX3bHurKbE2PVYV4NXEvodQFiZXsuN-JZCj-RL3__7EID13A/formResponse', {
+      const response = await fetch('https://docs.google.com/forms/d/e/1FAIpQLSfX3bHurKbE2PVYV4NXEvodQFiZXsuN-JZCj-RL3__7EID13A/formResponse', {
         method: 'POST',
         mode: 'no-cors',
-        body: googleFormData
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: formParams.toString()
       });
 
       setSubmitStatus('success');
