@@ -73,7 +73,7 @@ export default function ContactForm() {
                   </div>
                   <div>
                     <p className="font-semibold text-gray-900">Office</p>
-                    <p className="text-gray-600">Mumbai, Maharashtra</p>
+                    <p className="text-gray-600">Hyderabad, Telangana</p>
                     <p className="text-sm text-gray-500 mt-1">Serving PAN India</p>
                   </div>
                 </div>

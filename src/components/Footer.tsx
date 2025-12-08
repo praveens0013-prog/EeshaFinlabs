@@ -135,7 +135,7 @@ export default function Footer() {
               <li className="flex items-start space-x-3">
                 <MapPin className="w-5 h-5 text-blue-400 flex-shrink-0 mt-1" />
                 <div>
-                  <p className="text-white font-semibold">Mumbai, Maharashtra</p>
+                  <p className="text-white font-semibold">Hyderabad, Telangana</p>
                   <p className="text-sm text-gray-400">Serving PAN India</p>
                 </div>
               </li>
