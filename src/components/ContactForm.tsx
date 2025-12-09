@@ -36,16 +36,16 @@ export default function ContactForm() {
       const formParams = new URLSearchParams();
       
       // Map form fields to Google Form entry IDs - these need to be updated with actual entry IDs from your form
-      formParams.append('entry.1234567890', formData.fullName); // Full Name
-      formParams.append('entry.0987654321', formData.email); // Email
-      formParams.append('entry.1122334455', formData.phone); // Phone
-      formParams.append('entry.5566778899', formData.loanType); // Loan Type
-      formParams.append('entry.9988776655', formData.loanAmount); // Loan Amount
-      formParams.append('entry.4433221100', formData.monthlyIncome); // Monthly Income
-      formParams.append('entry.7766554433', formData.employmentType); // Employment Type
-      formParams.append('entry.2211009988', formData.city); // City
-      formParams.append('entry.6655443322', formData.pincode); // Pincode
-      formParams.append('entry.1100998877', formData.purpose); // Purpose
+      formParams.append('entry.320906781', formData.fullName); // Full Name
+      formParams.append('entry.1019103318', formData.email); // Email
+      formParams.append('entry.1066137140', formData.phone); // Phone
+      formParams.append('entry.1309246001', formData.loanType); // Loan Type
+      formParams.append('entry.797680632', formData.loanAmount); // Loan Amount
+      formParams.append('entry.87878641', formData.monthlyIncome); // Monthly Income
+      formParams.append('entry.655853062', formData.employmentType); // Employment Type
+      formParams.append('entry.91414745', formData.city); // City
+      formParams.append('entry.1817806834', formData.pincode); // Pincode
+      formParams.append('entry.233340222', formData.purpose); // Purpose
 
       // Submit to Google Form
       const response = await fetch('https://docs.google.com/forms/d/e/1FAIpQLSfX3bHurKbE2PVYV4NXEvodQFiZXsuN-JZCj-RL3__7EID13A/formResponse', {
