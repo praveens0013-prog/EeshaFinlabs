@@ -48,7 +48,7 @@ export default function ContactForm() {
       formParams.append('entry.233340222', formData.purpose); // Purpose
 
       // Submit to Google Form
-      const response = await fetch('https://docs.google.com/forms/d/1oMDke96zrnbMDaVWi5U9pjEybUeI0L9vzUUi-L0mhD8/edit', {
+      const response = await fetch('https://docs.google.com/forms/u/0/d/e/1FAIpQLSfX3bHurKbE2PVYV4NXEvodQFiZXsuN-JZCj-RL3__7EID13A/formResponse', {
         method: 'POST',
         mode: 'no-cors',
         headers: {
