@@ -18,7 +18,7 @@ export default function About() {
           <div className="space-y-6">
             <h3 className="text-3xl font-bold text-gray-900">Who We Are</h3>
             <p className="text-lg text-gray-700 leading-relaxed">
-              Eesha Finlabs is a premier Direct Selling Agent (DSA) partner connecting individuals and businesses with India's leading banks and NBFCs. We leverage technology and deep industry relationships to make loan approval faster, simpler, and more transparent.
+              Eesha Finlabs is a trusted financial partner connecting individuals and businesses with India's leading banks and NBFCs. We leverage technology and deep industry relationships to make loan approval faster, simpler, and more transparent.
             </p>
             <p className="text-lg text-gray-700 leading-relaxed">
               With authorized partnerships across 30+ financial institutions, we offer unbiased loan comparisons tailored to your unique requirements, ensuring you get the best possible terms.

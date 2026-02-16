@@ -157,7 +157,7 @@ export default function Footer() {
           <div className="bg-gray-800 rounded-lg p-6">
             <h4 className="text-white font-bold mb-3">Important Disclaimer</h4>
             <p className="text-sm text-gray-400 leading-relaxed mb-3">
-              Eesha Finlabs operates as a Direct Selling Agent (DSA) and loan facilitator. We do not directly disburse loans. All loan applications are processed and approved by our partner banks and Non-Banking Financial Companies (NBFCs), which are regulated by the Reserve Bank of India (RBI). Final approval, interest rates, processing fees, and loan terms are determined solely by the respective lending institution based on their internal policies and the applicant's creditworthiness.
+              Eesha Finlabs operates as a loan facilitator partnering with leading banks and Non-Banking Financial Companies (NBFCs). We do not directly disburse loans. All loan applications are processed and approved by our partner banks and NBFCs, which are regulated by the Reserve Bank of India (RBI). Final approval, interest rates, processing fees, and loan terms are determined solely by the respective lending institution based on their internal policies and the applicant's creditworthiness.
             </p>
             <p className="text-sm text-gray-400 leading-relaxed mb-3">
               <span className="text-white font-semibold">No Upfront Fees:</span> Eesha Finlabs does not charge any upfront fees from customers for loan applications or advisory services. We earn commission from our banking partners only upon successful loan disbursal. Any processing fees, documentation charges, or other costs are collected directly by the lending institution as per their standard practices.
