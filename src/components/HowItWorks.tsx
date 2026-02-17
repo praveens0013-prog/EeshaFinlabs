@@ -5,29 +5,25 @@ const steps = [
     icon: FileText,
     number: '01',
     title: 'Submit Your Details',
-    description: 'Fill out our simple online form with basic information about your loan requirement and personal details. Takes less than 2 minutes.',
-    duration: '2 Minutes'
+    description: 'Fill out our simple online form with basic information about your loan requirement and personal details.'
   },
   {
     icon: Search,
     number: '02',
     title: 'Instant Eligibility Check',
-    description: 'Our advanced algorithm analyzes your profile and checks eligibility across 30+ lenders without affecting your credit score.',
-    duration: '5 Minutes'
+    description: 'Our advanced algorithm analyzes your profile and checks eligibility across 30+ lenders without affecting your credit score.'
   },
   {
     icon: GitCompare,
     number: '03',
     title: 'Compare Best Offers',
-    description: 'Review personalized loan offers from multiple banks and NBFCs. Compare interest rates, tenure, and terms to choose the best fit.',
-    duration: '10 Minutes'
+    description: 'Review personalized loan offers from multiple banks and NBFCs. Compare interest rates, tenure, and terms to choose the best fit.'
   },
   {
     icon: CheckCircle,
     number: '04',
     title: 'Get Approved & Funded',
-    description: 'Complete minimal documentation, e-sign the agreement, and receive funds directly in your bank account within 24 hours.',
-    duration: '24 Hours'
+    description: 'Complete minimal documentation, e-sign the agreement, and receive funds directly in your bank account.'
   }
 ];
 
@@ -69,16 +65,7 @@ export default function HowItWorks() {
                       </div>
 
                       <h3 className="text-2xl font-bold text-gray-900 mb-3">{step.title}</h3>
-                      <p className="text-gray-600 leading-relaxed mb-4">{step.description}</p>
-
-                      <div className="mt-auto pt-4">
-                        <div className="inline-flex items-center space-x-2 bg-blue-50 px-4 py-2 rounded-full border border-blue-200">
-                          <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                          <span className="text-sm font-semibold text-blue-600">{step.duration}</span>
-                        </div>
-                      </div>
+                      <p className="text-gray-600 leading-relaxed">{step.description}</p>
                     </div>
                   </div>
                 </div>
